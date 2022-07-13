@@ -12,11 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: pip install flake8, black, isort
+      - name: Pip install black, isort, flake8
         run: |
           python -m pip install --no-cache-dir --upgrade pip
-          pip install flake8 black isort
-          echo "pip install success"
+          pip install black isort flake8
+      - name: Reformat code using black
+        run: black .
+        echo "black done"
 
   publish:
     runs-on: ubuntu-latest
