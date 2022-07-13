@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "skeleton-cicd"
+version = "0.0.0-dev" # updated in CICD
+description = "Getting started with CICD - Using [Github Actions, Precommits] for [QualityAssurance, Testing, Publishing]"
+authors = ["arthurcht <arthur@dataroots.io>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"

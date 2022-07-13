@@ -1,11 +1,77 @@
-name: Lint, Test, Publish
+# reference databooks https://github.com/datarootsio/databooks/tree/main/.github/workflows
+# reference rootsstyle https://github.com/datarootsio/rootsstyle/tree/main/.github/workflows
+# need specific poetry version?
+
+name: 'CICD - QualityAssurance, Test, Publish'
 on:
   push:
     branches:
-      - master
+      - main
+      - cicd-beatroots13Jul
+#for any push in repo:
+#on: [push]
 
 jobs:
-  lint:
+  QA:
     runs-on: ubuntu-latest
     steps:
-      run: echo "CICD let's go"
+      - uses: actions/checkout@v2
+      - name: Pip install black, isort, flake8
+        run: |
+          python -m pip install --no-cache-dir --upgrade pip
+          pip install black isort flake8
+      - name: Reformat code using black
+        run: black .
+      - name: Reformat imports using isort
+        run: isort .
+
+      - name: Commit reformatted code
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Commit black- and isort- reformatted code"
+
+      - name: Lint using flake8
+        run: flake8 .
+
+  TEST:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.7', '3.9', '3.10']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry and dependencies
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+          poetry install --no-interaction
+      - name: Tests using pytest with coverage report
+        run: pytest --cov-report=xml --cov=./
+      - name: Upload coverage report to Codecov
+        if: ${{ matrix.python-version == '3.9' }}
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+
+#  PUBLISH:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      git-version: ${{ steps.git-version.outputs.version }}
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v2
+#        with:
+#          ref: ${{ github.head_ref }}  # checkout the correct branch name
+#          fetch-depth: 0               # fetch the whole repo history
+#      - name: Git Version
+#        uses: codacy/git-version@2.2.0
+#        id: git-version
+#        with:
+#          release-branch: main
+#      - name: Echo Git Version
+#        run:
+#          echo "${{ steps.git-version.outputs.version }}"
