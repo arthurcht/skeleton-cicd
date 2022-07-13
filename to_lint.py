@@ -1,11 +1,12 @@
 import os
 import time
-from datetime import date, datetime
-from os import path
+from datetime import datetime
+import time
+from datetime import date
 
-black_this = [1, 2, 3]
 path = "./README.md"
-exist = os.path.exists(path)
+exist =        os.path.exists(path)
+
 print(exist)
 print(time.time())
 print(date.today())
