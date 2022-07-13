@@ -42,7 +42,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       #- name: Poetry install dependencies
       - name: Tests using pytest
-        run: pytest .
+        run: pytest
 
 #  PUBLISH:
 #    runs-on: ubuntu-latest
