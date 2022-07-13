@@ -1,3 +1,1 @@
-black_this = [1,
-    2,
-              3]
+black_this = [1, 2, 3]
