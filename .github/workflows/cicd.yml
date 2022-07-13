@@ -1,4 +1,4 @@
-name: 'CICD - Lint, Test, Publish'
+name: 'CICD - Quality Assurance, Test, Publish'
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ on:
 #on: [push]
 
 jobs:
-  LINT:
+  QA:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,10 +20,14 @@ jobs:
         run: black .
       - name: Reformat imports using isort
         run: isort .
+
       - name: Commit reformatted code
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Commit black- and isort- reformatted code"
+
+      - name: Lint using flake8
+        run: flake8 .
 
 #  PUBLISH:
 #    runs-on: ubuntu-latest
