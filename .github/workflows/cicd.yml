@@ -6,8 +6,21 @@ on:
       - cicd-beatroots13Jul
 
 jobs:
-  lint:
+  publish:
     runs-on: ubuntu-latest
+    outputs:
+      git-version: ${{ steps.git-version.outputs.version }}
     steps:
-      - name: CICD
-        run: echo "CICD let's go"
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}  # checkout the correct branch name
+          fetch-depth: 0               # fetch the whole repo history
+      - name: Git Version
+        uses: codacy/git-version@2.2.0
+        id: git-version
+        with:
+          release-branch: main
+      - name: Echo Git Version
+        run:
+          echo "${git-version}"
