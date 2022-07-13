@@ -1,0 +1,11 @@
+name: Lint, Test, Publish
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      run: echo "CICD let's go"
