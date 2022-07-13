@@ -17,7 +17,7 @@ jobs:
           python -m pip install --no-cache-dir --upgrade pip
           pip install black isort flake8
       - name: Reformat code using black
-        run:
+        run: |
           black .
           echo "black done"
 
