@@ -8,7 +8,7 @@ on:
 #on: [push]
 
 jobs:
-  lint:
+  LINT:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,26 +18,28 @@ jobs:
           pip install black isort flake8
       - name: Reformat code using black
         run: black .
+      - name: Reformat imports using isort
+        run: isort .
       - name: Commit reformatted code
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Commit black-reformatted code"
+          commit_message: "Commit black- and isort- reformatted code"
 
-  publish:
-    runs-on: ubuntu-latest
-    outputs:
-      git-version: ${{ steps.git-version.outputs.version }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}  # checkout the correct branch name
-          fetch-depth: 0               # fetch the whole repo history
-      - name: Git Version
-        uses: codacy/git-version@2.2.0
-        id: git-version
-        with:
-          release-branch: main
-      - name: Echo Git Version
-        run:
-          echo "${{ steps.git-version.outputs.version }}"
+#  PUBLISH:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      git-version: ${{ steps.git-version.outputs.version }}
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v2
+#        with:
+#          ref: ${{ github.head_ref }}  # checkout the correct branch name
+#          fetch-depth: 0               # fetch the whole repo history
+#      - name: Git Version
+#        uses: codacy/git-version@2.2.0
+#        id: git-version
+#        with:
+#          release-branch: main
+#      - name: Echo Git Version
+#        run:
+#          echo "${{ steps.git-version.outputs.version }}"
