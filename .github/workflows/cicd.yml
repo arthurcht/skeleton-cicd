@@ -18,6 +18,10 @@ jobs:
           pip install black isort flake8
       - name: Reformat code using black
         run: black .
+      - name: Commit reformatted code
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Commit black-reformatted code"
 
   publish:
     runs-on: ubuntu-latest
