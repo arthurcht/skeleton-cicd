@@ -51,6 +51,11 @@ jobs:
           poetry install --no-interaction
       - name: Tests using pytest with coverage report
         run: pytest --cov-report=xml --cov=./
+      - name: Upload coverage report to Codecov
+        if: ${{ matrix.python-version == '3.9' }}
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
 
 #  PUBLISH:
 #    runs-on: ubuntu-latest
