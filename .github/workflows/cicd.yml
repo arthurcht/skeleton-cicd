@@ -1,11 +1,15 @@
-name: Lint, Test, Publish
+name: CICD - Lint, Test, Publish
 on:
   push:
-    branches:
-      - main
-      - cicd-beatroots13Jul
+    - main
+    - cicd-beatroots13Jul
+"""for any push in repo:
+on: [push]
+"""
 
 jobs:
+  lint:
+
   publish:
     runs-on: ubuntu-latest
     outputs:
@@ -23,4 +27,4 @@ jobs:
           release-branch: main
       - name: Echo Git Version
         run:
-          echo "${git-version}"
+          echo "${{ steps.git-version.outputs.version }}"
