@@ -49,8 +49,8 @@ jobs:
           pip install poetry
           poetry config virtualenvs.create false
           poetry install --no-interaction
-      - name: Tests using pytest
-        run: pytest
+      - name: Tests using pytest with coverage report
+        run: pytest --cov-report=xml --cov=./
 
 #  PUBLISH:
 #    runs-on: ubuntu-latest
