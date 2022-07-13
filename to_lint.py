@@ -1,9 +1,5 @@
-from datetime import date
 import os
 import sys
-from datetime import time
-import sys
+from datetime import date, time
 
-black_this = [1,
-        2,
-              3]
+black_this = [1, 2, 3]
