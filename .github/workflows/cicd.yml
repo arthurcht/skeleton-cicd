@@ -3,9 +3,8 @@ on:
   push:
     - main
     - cicd-beatroots13Jul
-"""for any push in repo:
-on: [push]
-"""
+#for any push in repo:
+#on: [push]
 
 jobs:
   lint:
