@@ -1,13 +1,14 @@
-name: CICD - Lint, Test, Publish
+name: 'CICD - Lint, Test, Publish'
 on:
   push:
-    - main
-    - cicd-beatroots13Jul
+    branches:
+      - main
+      - cicd-beatroots13Jul
 #for any push in repo:
 #on: [push]
 
 jobs:
-  lint:
+  #lint:
 
   publish:
     runs-on: ubuntu-latest
