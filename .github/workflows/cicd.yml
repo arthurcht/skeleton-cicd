@@ -1,8 +1,9 @@
-name: Lint, Test, Publish
+name: 'Lint, Test, Publish'
 on:
   push:
     branches:
       - master
+      - cicd-beatroots13Jul
 
 jobs:
   lint:
